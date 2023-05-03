@@ -41,7 +41,7 @@ open class ResizableView: UIView {
     var touchStart: CGPoint?
     var minWidth: CGFloat = 48.0
     var minHeight: CGFloat = 48.0
-    var anchorPoint: ResizableViewAnchorPoint?
+    var resizableViewAnchorPoint: ResizableViewAnchorPoint?
     var delegate: ResizableViewDelegate?
     var preventsPositionOutsideSuperview: Bool = true
     var isLocked = false {
@@ -73,7 +73,7 @@ open class ResizableView: UIView {
     }
     var isResizing: Bool {
         get {
-            guard let anchorPoint = self.anchorPoint else { return false }
+            guard let anchorPoint = self.resizableViewAnchorPoint else { return false }
             return anchorPoint.adjustsH != 0.0
                 || anchorPoint.adjustsW != 0.0
                 || anchorPoint.adjustsX != 0.0
@@ -184,7 +184,7 @@ open class ResizableView: UIView {
         self.delegate?.resizableViewDidBeginEditing(view: self)
         
         self.borderView.isHidden = false
-        self.anchorPoint = self.anchorPoint(touch: touch.location(in: self))
+        self.resizableViewAnchorPoint = self.anchorPoint(touch: touch.location(in: self))
         
         self.touchStart = touch.location(in: self.superview)
         if !self.isResizing {
@@ -235,7 +235,7 @@ open class ResizableView: UIView {
         
         guard let superview = self.superview,
             let touchStart = self.touchStart,
-            let anchorPoint = self.anchorPoint else { return }
+            let anchorPoint = self.resizableViewAnchorPoint else { return }
         
         // (1) Update the touch point if we're outside the superview.
         if self.preventsPositionOutsideSuperview {

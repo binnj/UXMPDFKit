@@ -118,7 +118,6 @@ open class PDFFormTextField: PDFFormField {
             fatalError()
         }
         
-        /// UGLY
         (text as NSString).draw(in: frame, withAttributes: convertToOptionalNSAttributedStringKeyDictionary([
             convertFromNSAttributedStringKey(NSAttributedString.Key.font): font
             ]))
